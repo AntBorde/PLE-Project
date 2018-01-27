@@ -34,7 +34,7 @@ public class LocKey implements WritableComparable<LocKey> {
 	
 	
 	public int compareTo(LocKey arg0) {
-		if(x-arg0.getX() ==0 || y - arg0.getY()==0)
+		if(x-arg0.getX() ==0 && y - arg0.getY()==0)
 			return 0;
 		else 
 			return -1;
@@ -55,6 +55,10 @@ public class LocKey implements WritableComparable<LocKey> {
 	
 	public void setY(int y1) {
 		y=y1;
+	}
+	
+	public String toString() {
+		return (x+","+y+",");
 	}
 
 

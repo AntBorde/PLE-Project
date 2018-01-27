@@ -18,6 +18,7 @@ public class LocGps implements Writable {
 		this.lat = lat;
 		this.lng = lng;
 		this.h = h;
+		
 	}
 
 	public double getLat() {
@@ -43,22 +44,45 @@ public class LocGps implements Writable {
 	public void setH(int h) {
 		this.h = h;
 	}
-
+	
 	public LocKey getKey() {  //renvoi une clé en fonction de la latitude et 
 												//longitude qui correspond au "coordoné" de la tuile
 
 		try {
 			double x;
 			double y;
-			double latitudeTile;
-			x = lat / App.getLatTile();
-			latitudeTile = x * App.getLatTile();
-			y = lng / (App.sizeTile / (App.METER_PER_DEG_EQUATEUR * Math.cos((latitudeTile * Math.PI) / 180)));
+			x = lat / TileReduce.getLatTile();
+			y = lng / (TileReduce.sizeTile / (TileReduce.METER_PER_DEG_EQUATEUR * Math.cos(((x * TileReduce.getLatTile()) * Math.PI) / 180)));
 			return new LocKey((int) x, (int) y);
 		} catch (Exception e) {
 			return new LocKey(1000000, 1000000);
 		}
 	}
+	
+	public static LocKey getKey(Double latitude, double longitude) { // renvoi une clé en fonction de la latitude et
+		// longitude qui correspond au "coordoné" de la tuile
+
+		double x;
+		double y;
+		x = latitude / TileReduce.getLatTile();
+		// System.out.println(" x = " + x);
+		// System.out.println(((int)x * TileReduce.getLatTile()));
+		y = longitude / (TileReduce.sizeTile / (TileReduce.METER_PER_DEG_EQUATEUR
+				* Math.cos((((int) x * TileReduce.getLatTile()) * Math.PI) / 180)));
+		// System.out.println(" y = "+y);
+		return new LocKey((int) x, (int) y);
+
+	}
+	
+	public void generateLocTileCenter(LocKey key) {
+		double latTile = TileReduce.getLatTile();
+		lat = ((double)key.getX()*latTile)+latTile/2;
+		double lngTile = TileReduce.sizeTile/(TileReduce.METER_PER_DEG_EQUATEUR * Math.cos((lat * Math.PI) / 180));
+		//System.out.println(lngTile);
+		lng = ((double)key.getY() * lngTile) + lngTile/2;
+		
+	}
+	
 
 	public String toString() {
 		return (lat + "," + lng + "," + h);
@@ -74,7 +98,7 @@ public class LocGps implements Writable {
 	public void write(DataOutput out) throws IOException {
 		out.writeDouble(lat);
 		out.writeDouble(lng);
-		out.writeDouble(h);
+		out.writeInt(h);
 		
 	}
 

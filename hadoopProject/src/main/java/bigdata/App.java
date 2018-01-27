@@ -5,7 +5,7 @@ import org.apache.hadoop.util.ProgramDriver;
 public class App {
 	
 	public static double sizeTile = 0;
-	public static final int METER_PER_DEG_EQUATEUR = 111319; //wikipedia
+	public static final double METER_PER_DEG_EQUATEUR = 111319; //wikipedia
 	public static double latTile = 0;
 	
 	
