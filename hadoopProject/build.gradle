@@ -1,0 +1,30 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+group = 'antborde'
+
+sourceSets {
+	main.java.srcDir 'src/main/java'
+	test.java.srcDir 'src/test/java'
+}
+
+mainClassName = 'bigdata.App'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'org.apache.hadoop:hadoop-common:2.8.1'
+	compile 'org.apache.hadoop:hadoop-mapreduce-client-core:2.8.1'
+}
+
+jar {
+	manifest {
+		attributes(
+			'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+			'Main-Class': 'bigdata.App'
+		)
+	}
+}
