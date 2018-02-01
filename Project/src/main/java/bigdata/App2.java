@@ -49,7 +49,7 @@ public class App2 implements Serializable {
 	public static void main(String[] args) throws IOException {
 		// String input = args[0];
 		// int nbZoom = Integer.parseInt(args[1]);
-		int nbZoom = 3;
+		int nbZoom = 8;
 		double size = 200;
 		
 		HbaseConnexion.InitTable(nbZoom);
@@ -57,7 +57,7 @@ public class App2 implements Serializable {
 		SparkConf conf = new SparkConf().setAppName("TP Spark");
 		JavaSparkContext context = new JavaSparkContext(conf);
 
-		JavaPairRDD<Tuple2<Integer,Integer>,LocGPS> firstRDD = context.textFile("hdfs://beetlejuice:9000/user/antborde/cut3.txt").mapToPair((x) -> {
+		JavaPairRDD<Tuple2<Integer,Integer>,LocGPS> firstRDD = context.textFile("hdfs://beetlejuice:9000/raw_data/dem3_lat_lng.txt").mapToPair((x) -> {
 			short nbReduce = 0;
 			String[] parts = x.split(",");
 			LocGPS loc= new LocGPS(Double.parseDouble(parts[0])+90, LocGPS.correctionLongitude(Double.parseDouble(parts[1])+180),
@@ -126,7 +126,7 @@ public class App2 implements Serializable {
 				Tuple2<Integer,Integer> key = loc.getKey(size);
 				return new LocGPS(key._1,key._2,moyH,size,loc.getNbReduce());
 			}
-			return new LocGPS(80,80,80,(short)10000);
+			return new LocGPS(1,1,-1,(short)0);
 		}).cache();
 		
 		

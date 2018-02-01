@@ -11,8 +11,8 @@ public class Const implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public static double sizeTile = 1000;
-	public static final int METER_PER_DEG_EQUATEUR = 111319; //wikipedia 139908092
-	public static final String NAMETABLE = "antCleImgtest";
+	public static final int METER_PER_DEG_EQUATEUR = 111319; //wikipedia
+	public static final String NAMETABLE = "antCleImgFinal";
 	public static final TableName TABLENAME = TableName.valueOf(NAMETABLE);
 	public static final byte[] COL_LAT = Bytes.toBytes("lat");
 	public static final byte[] COL_LNG = Bytes.toBytes("lng");
@@ -20,7 +20,7 @@ public class Const implements Serializable {
 	public static final byte[] COLX = Bytes.toBytes("x");
 	public static final byte[] COLY = Bytes.toBytes("y");
 	public static final int CANVAS_SIZE = 256*256;
-	//public static final double DEGRE_PER_POINT_HGT_FORMAT =  ((double)1)/1201;
+	public static final double DEGRE_PER_POINT_HGT_FORMAT =  ((double)1)/1201;
 	
 	
 	public static double getSize() {
