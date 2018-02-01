@@ -10,35 +10,33 @@ public class Const implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static double sizeTile = 1000;
+	
+	/**
+	 * constante de calcul
+	 */
+	public static final int NB_ZOOM = 10;
+	public static final double SIZE = 100; //taille des tuiles de base en mètre
+	public static final double FIRST_AGGREGATION_SIZE = 90; // taille de l'aggrégation 0 qui permet de corriger la courbure de la terre.
+															// 90m étant environs la précision en latitude de la terre au format hgt.
 	public static final int METER_PER_DEG_EQUATEUR = 111319; //wikipedia
+	public static final int CANVAS_SIZE = 256*256;
+	/**
+	 * constant des table hbase
+	 */
 	public static final String NAMETABLE = "antCleImgFinal";
 	public static final TableName TABLENAME = TableName.valueOf(NAMETABLE);
-	public static final byte[] COL_LAT = Bytes.toBytes("lat");
-	public static final byte[] COL_LNG = Bytes.toBytes("lng");
 	public static final byte[] COLVALUE = Bytes.toBytes("value");
 	public static final byte[] COLX = Bytes.toBytes("x");
 	public static final byte[] COLY = Bytes.toBytes("y");
-	public static final int CANVAS_SIZE = 256*256;
-	public static final double DEGRE_PER_POINT_HGT_FORMAT =  ((double)1)/1201;
 	
 	
-	public static double getSize() {
-		return sizeTile;
-	}
 	
-	public static void setSize(int size) {
-		sizeTile=size;
-	}
-	
-	public static double getLatTile() {
-		return sizeTile/METER_PER_DEG_EQUATEUR;
-	}
+	/**
+	 * retourne le nombre de degré de latitude pour une taille donnée (en mètre)
+	 */
 	
 	public static double getLatTile(double size) {
-		System.out.println(size/METER_PER_DEG_EQUATEUR);
 		return size/METER_PER_DEG_EQUATEUR;
-		
 	}
 	
 	

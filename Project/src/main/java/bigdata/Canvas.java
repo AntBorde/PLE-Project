@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 public class Canvas implements Serializable {
 	
+
+	private static final long serialVersionUID = 1L;
+	
 	short nbReduce;
 	byte[] image;
-	
-	
 	
 	
 	public Canvas() {

@@ -34,6 +34,14 @@ public class HbaseConnexion {
 		connection.close();
 	}
 	
+	
+	/**
+	 * Ecrit en Bd, Pour l'instant la clé de canvas est passer en keyrow de habase et en colonne.
+	 * Cela parce que nous cherchons a y accéder façilement depuis node et que nous ne savons pas encore
+	 * avec certitude ce qui va etre utilisé.
+	 * 
+	 * Dans l'idéal on l'enleverai de la clé pour ne pas avoir a déplacer la variable nbReduce dans Canvas.
+	 */
 	public static void writeBD(JavaSparkContext context, JavaPairRDD<Tuple2<Integer, Integer>, Canvas> locs) {
 		locs.foreachPartition(it -> {
 			Connection conn = ConnectionFactory.createConnection();
